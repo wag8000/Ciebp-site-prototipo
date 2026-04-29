@@ -1,35 +1,30 @@
 // ===============================
-// 🔌 CONFIG SUPABASE
+// 🔌 SUPABASE
 // ===============================
-const supabaseUrl = 'https://SEU-PROJETO.supabase.co';
-const supabaseKey = 'SUA-CHAVE-ANON';
-
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+import supabase from './supabase.js'
+import { carregarResultados } from './resultado.js'
 
 // ===============================
 // ➕ ADICIONAR TIME
 // ===============================
 async function addTime() {
-  const escola = document.getElementById('input-escola').value.trim();
-  const nome = document.getElementById('input-time').value.trim();
+  const escola = document.getElementById('input-escola').value.trim()
+  const nome = document.getElementById('input-time').value.trim()
 
   if (!escola || !nome) {
-    alert("Preencha todos os campos");
-    return;
+    alert("Preencha todos os campos")
+    return
   }
 
   const { error } = await supabase
     .from('teams')
-    .insert([{ escola, nome }]);
+    .insert([{ escola, nome }])
 
   if (error) {
-    console.error(error);
-    alert("Erro ao cadastrar time");
+    console.error(error)
+    alert("Erro ao cadastrar")
   } else {
-    document.getElementById('input-escola').value = '';
-    document.getElementById('input-time').value = '';
-
-    carregarTimes();
+    carregarTimes()
   }
 }
 
@@ -40,68 +35,56 @@ async function carregarTimes() {
   const { data, error } = await supabase
     .from('teams')
     .select('*')
-    .order('created_at', { ascending: true });
+    .order('created_at')
 
-  if (error) {
-    console.error(error);
-    return;
-  }
+  if (error) return console.error(error)
 
-  const tbody = document.getElementById('table-body');
-  tbody.innerHTML = '';
+  const tbody = document.getElementById('table-body')
+  if (!tbody) return
 
-  data.forEach(team => {
-    const tr = document.createElement('tr');
+  tbody.innerHTML = ''
 
-    tr.innerHTML = `
-      <td class="p-3">${team.escola}</td>
-      <td class="p-3 font-semibold">${team.nome}</td>
-      <td class="p-3">
-        <button onclick="removerTime(${team.id})"
-          class="text-red-500 hover:underline">
-          Remover
-        </button>
-      </td>
-    `;
-
-    tbody.appendChild(tr);
-  });
-
-  document.getElementById('row-count').innerText =
-    `${data.length} times cadastrados`;
+  data.forEach(t => {
+    tbody.innerHTML += `
+      <tr>
+        <td>${t.escola}</td>
+        <td>${t.nome}</td>
+        <td>
+          <button onclick="removerTime(${t.id})">Remover</button>
+        </td>
+      </tr>
+    `
+  })
 }
 
 // ===============================
-// ❌ REMOVER TIME
+// ❌ REMOVER
 // ===============================
 async function removerTime(id) {
-  if (!confirm("Remover este time?")) return;
+  if (!confirm("Remover?")) return
 
   const { error } = await supabase
     .from('teams')
     .delete()
-    .eq('id', id);
+    .eq('id', id)
 
-  if (error) {
-    console.error(error);
-    alert("Erro ao remover");
-  } else {
-    carregarTimes();
-  }
+  if (!error) carregarTimes()
 }
 
 // ===============================
-// 🧠 GERAR CHAVEAMENTO (RPC)
+// 🧠 GERAR CHAVEAMENTO
 // ===============================
 async function gerarChaveamento() {
-  const { error } = await supabase.rpc('gerar_chaveamento');
+  const { error } = await supabase.rpc('gerar_chaveamento')
 
   if (error) {
-    console.error(error);
-    alert("Erro ao gerar chaveamento");
+    console.error(error)
+    alert("Erro")
   } else {
-    alert("Chaveamento gerado com sucesso!");
-    carregarChaveamento();
+    alert("Chaveamento gerado!")
+
+    await carregarChaveamento()
+    await carregarResultados()
   }
 }
 
@@ -115,83 +98,70 @@ async function carregarChaveamento() {
       id,
       round,
       match_number,
-      next_match_id,
       team_a:team_a_id (nome),
       team_b:team_b_id (nome)
     `)
-    .order('round', { ascending: true })
-    .order('match_number', { ascending: true });
+    .order('round')
+    .order('match_number')
 
-  if (error) {
-    console.error(error);
-    return;
-  }
+  if (error) return console.error(error)
 
-  renderBracket(data);
+  renderBracket(data)
 }
 
 // ===============================
-// 🏆 RENDER CHAVEAMENTO (ESTILO COPA)
+// 🏆 RENDER BRACKET
 // ===============================
 function renderBracket(matches) {
-  const container = document.getElementById('bracket-ui');
-  container.innerHTML = '';
+  const container = document.getElementById('bracket-ui')
+  if (!container) return
 
-  // agrupar por rodada
-  const rounds = {};
+  container.innerHTML = ''
 
-  matches.forEach(match => {
-    if (!rounds[match.round]) {
-      rounds[match.round] = [];
-    }
-    rounds[match.round].push(match);
-  });
+  const rounds = {}
 
-  // criar colunas
-  const bracket = document.createElement('div');
-  bracket.className = "flex gap-10 overflow-x-auto";
+  matches.forEach(m => {
+    if (!rounds[m.round]) rounds[m.round] = []
+    rounds[m.round].push(m)
+  })
+
+  const bracket = document.createElement('div')
+  bracket.className = "flex gap-10 overflow-x-auto"
 
   Object.keys(rounds).forEach(round => {
-    const column = document.createElement('div');
-    column.className = "flex flex-col gap-6";
+    const col = document.createElement('div')
+    col.className = "flex flex-col gap-6"
 
-    const title = document.createElement('h3');
-    title.className = "font-bold text-[#193375]";
-    title.innerText = `Rodada ${round}`;
+    col.innerHTML += `<h3>Rodada ${round}</h3>`
 
-    column.appendChild(title);
-
-    rounds[round].forEach(match => {
-      const card = document.createElement('div');
-
-      card.className = `
-        bg-gray-50 border rounded-lg p-3 shadow
-        w-[200px]
-      `;
-
-      card.innerHTML = `
-        <div class="font-semibold">
-          ${match.team_a?.nome || 'BYE'}
+    rounds[round].forEach(m => {
+      col.innerHTML += `
+        <div class="bg-gray-50 p-3 rounded shadow w-[200px]">
+          <div>${m.team_a?.nome || 'BYE'}</div>
+          <div class="text-center">vs</div>
+          <div>${m.team_b?.nome || 'BYE'}</div>
         </div>
-        <div class="text-center text-gray-400">vs</div>
-        <div class="font-semibold">
-          ${match.team_b?.nome || 'BYE'}
-        </div>
-      `;
+      `
+    })
 
-      column.appendChild(card);
-    });
+    bracket.appendChild(col)
+  })
 
-    bracket.appendChild(column);
-  });
-
-  container.appendChild(bracket);
+  container.appendChild(bracket)
 }
 
 // ===============================
-// 🚀 INIT
+// 🚀 INIT GLOBAL
 // ===============================
 document.addEventListener('DOMContentLoaded', () => {
-  carregarTimes();
-  carregarChaveamento();
-});
+  carregarTimes()
+  carregarChaveamento()
+  carregarResultados()
+})
+
+// ===============================
+// 🌐 GLOBAL (HTML onclick)
+// ===============================
+window.addTime = addTime
+window.removerTime = removerTime
+window.gerarChaveamento = gerarChaveamento

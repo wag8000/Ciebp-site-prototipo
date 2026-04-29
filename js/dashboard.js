@@ -153,3 +153,11 @@ async function loadDashboard() {
 }
 
 loadDashboard();
+
+const { data } = await supabase
+  .from('matches')
+  .select(`
+    winner_id,
+    team_a:team_a_id(nome),
+    team_b:team_b_id(nome)
+  `)
