@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CIEBP - Itapecerica da Serra</title>
- 
-  <link rel="icon" type="image/x-icon" href="/imagem/favicon/favicon.ico" >
-  
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/box-shadow.css" />
-  <link rel="stylesheet" href="css/tabela.css" />
-  <link rel="stylesheet" href="css/detail.css" />
-  <link rel="stylesheet" href="css/aovivo.css" />
-  <link rel="stylesheet" href="css/projeto.css" />
-  <link rel="stylesheet" href="css/mapa.css" />
-  <link rel="stylesheet" href="css/carrossel.css" />
+    <head>
+    <meta charset="UTF-8">
+        <title>Dashboard - CIEBP</title>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="./js/supabase.js"></script>
+        <script src="./js/tabela.js"></script>
+
+
+        <link rel="icon" type="image/x-icon" href="/imagem/favicon/favicon.ico" >
+
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="css/box-shadow.css" />
+        <link rel="stylesheet" href="css/tabela.css" />
+        <link rel="stylesheet" href="css/dashboard.css" />
+        <link rel="stylesheet" href="css/detail.css" />
+        <link rel="stylesheet" href="css/aovivo.css" />
+        <link rel="stylesheet" href="css/projeto.css" />
+        <link rel="stylesheet" href="css/mapa.css" />
+        <link rel="stylesheet" href="css/carrossel.css" />
 
 
 
-  <link rel="stylesheet" type="text/tailwindcss" href="/css/tabela.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
-</head>
+
+        <link rel="stylesheet" type="text/tailwindcss" href="/css/tabela.css">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    </head>
 <body class="bg-[#F4F6FB] text-[#111827]">
 
 <header class="bg-white border-b border-gray-200 sticky top-0 z-[100] shadow-sm">
@@ -82,7 +89,7 @@
       <a href="/docs/Regulamento_da_ Batalha_ de_ Robo.pdf" class="text-[#0C87D1] font-bold text-lg border-b border-gray-50 pb-2">REGRAS</a>
       <a href="/projeto.html" class="text-[#193375] font-bold text-lg">Projeto</a>
       
-      <a href="ciebp.html" class="flex items-center justify-center gap-2 bg-[#e61a63] text-[#f7f7f7] px-4 py-3 mt-2 rounded-full shadow-[0_2px_4px_rgba(25,51,117,0.3)] active:bg-[#e61a63] transition-colors">
+       <a href="ciebp.html" class="flex items-center justify-center gap-2 bg-[#e61a63] text-[#f7f7f7] px-4 py-3 mt-2 rounded-full shadow-[0_2px_4px_rgba(25,51,117,0.3)] active:bg-[#e61a63] transition-colors">
         <span class="w-2 h-2 rounded-full bg-[#ffffff]"></span>
         <span class="font-black tracking-widest uppercase text-base">CIEBP</span>
       </a>
@@ -91,107 +98,43 @@
 </header>
 
 <hr class="linha-rosa">
+<body class="p-10 bg-[#F4F6FB]">
 
-<section class="hero-ciebp" id="inicio" aria-label="Destaques CIEBP">
-    <div class="carousel-container">
-      <div class="carousel-track" id="track">
-        
-        <article class="slide">
-          <div class="slide-content">
-            <div class="col-text">
-              <span class="badge-tema">🏆 Temporada 2026</span>
-              <h2 class="title-primary">Futebol de <span class="highlight">Robôs</span></h2>
-              <p class="subtitle">A maior competição de robótica escolar do estado. Lógica de programação e estratégia definindo os campeões em campo.</p>
-              <a href="tabela.html" class="btn-cta">Ver Tabela de Jogos</a>
-            </div>
-            <div class="col-visual">
-              <div class="orbital-container">
-                <div class="orbital-line"></div>
-                <div class="image-frame">
-                  <img src="/imagem/psd-banner-site_01.png" alt="Robô na Arena" class="w-full h-full object-cover">
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
+<div class="dashboard-container p-6">
 
-        <article class="slide">
-          <div class="slide-content">
-            <div class="col-text">
-              <span class="badge-tema">Educação e Tecnologia</span>
-              <h2 class="title-primary">Alunos<span class="highlight"> Criativos</span></h2>
-              <p class="subtitle">O CIEBP impulsionando os estudantes para o futuro através de espaços maker, programação e letramento digital.</p>
-              <a href="equipes.html" class="btn-cta">Veja as Equipes</a>
-            </div>
-            <div class="col-visual">
-              <div class="orbital-container">
-                <div class="orbital-line"></div>
-                <div class="image-frame">
-                  <img src="/imagem/psd-banner-site_02.png" alt="Alunos programando" class="w-full h-full object-cover">
-                </div>
-              </div>
-            </div>
-          </div>
-        </article> 
+<h1 class="dashboard-title text-5xl mb-10">
+  <img src="/imagem/logo 200x200.png" alt=""> Estatísticas do Torneio
+</h1>
 
-        <article class="slide">
-          <div class="slide-content">
-            <div class="col-text">
-              <span class="badge-tema">Acolhimento</span>
-              <h2 class="title-primary">Juntos<span class="highlight"> Inovando</span></h2>
-              <p class="subtitle">Um espaço seguro e estimulante para impulsionar a criatividade, onde cada ideia tem o poder de transformar a realidade.</p>
-              <a href="tutoriais.html" class="btn-cta">Acessar Tutoriais</a>
-            </div>
-            <div class="col-visual">
-              <div class="orbital-container">
-                <div class="orbital-line"></div>
-                <div class="image-frame">
-                  <img src="/imagem/prototipagem.jpeg" alt="Alunos reunidos" class="w-full h-full object-cover">
-                </div>
-              </div>
-            </div>
-          </div>
-        </article> 
 
-        <article class="slide">
-          <div class="slide-content">
-            <div class="col-text">
-              <span class="badge-tema">Formação</span>
-              <h2 class="title-primary">Equipe em<span class="highlight">   Formação</span></h2>
-              <p class="subtitle">A equipe com Supervisores, Diretores, Coordenadores e Professores participando das formações.</p>
-             <a href="https://wa.me/5511945891459" target="_blank" aria-label="WhatsApp" class="hover:text-[#FF1D6E] hover:scale-110 transition-all duration-300 btn-cta">Contato</a> 
 
-            </div>
-            <div class="col-visual">
-              <div class="orbital-container">
-                <div class="orbital-line"></div>
-                <div class="image-frame">
-                  <img src="/imagem/visitas.png" alt="Prototipagem" class="w-full h-full object-cover">
-                </div>
-              </div>
-            </div>
-          </div>
-        </article> 
+<!-- CARDS -->
+<div class="dashboard-grid mb-10">
 
-      </div>
-    </div>
-    <button id="btnPrev" class="nav-arrow prev">&#10094;</button>
-    <button id="btnNext" class="nav-arrow next">&#10095;</button>
-  </section>
+  <div class="dashboard-card">
+    <h2>Total de Partidas</h2>
+    <p id="total-matches">0</p>
+  </div>
 
-<hr class="linha-rosa">
-    <div class="title-primary" style="text-align: center; margin-top: 40px;">
-      <h1>Em ano de Copa do Mundo,</h1>
-      <h1>quem entra em Campo</h1>
-      <h2 ><span class="highlight">É o CIEBP Itapecerica da Serra</span></h2>
-    </div>
-<div class="video-wrapper" id="Futebol">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/-Wmhyd6z418?si=GzbERq2Ju0PAU0jV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
-  </section>
+  <div class="dashboard-card">
+    <h2>Total de Times</h2>
+    <p id="total-times">0</p>
+  </div>
 
-  <hr class="linha-rosa">
+</div>
 
+<!-- GRÁFICO -->
+<div class="dashboard-chart mb-10">
+  <canvas id="rankingChart"></canvas>
+</div>
+
+<!-- RANKING -->
+<div class="dashboard-ranking">
+  <h2 class="mb-4">🏆 Ranking</h2>
+  <ul id="ranking-list"></ul>
+</div>
+
+</div>
 
     <section class="bg-white border-t border-gray-200 py-20" id="regras">
     <div class="max-w-[1400px] mx-auto px-6">
@@ -323,16 +266,15 @@
 </div>
 
 </footer>
-
+  <script src="./js/supabase.js"></script>
   <script src="./js/app.js"></script>
-  <script src="./js/carrousel.js"></script>
+  <script src="/js/dashboard.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="./tailwind.config.js"></script>
   <script src="./js/tabela.js"></script>
   <script src="./js/resultado.js"></script>
   <script src="./js/aovivo.js"></script>
   <script src="./js/mapa.js"></script>
-  <script src="./js/supabase.js"></script>
   <script src="./js/chaveamento.js"></script>
 
   <script>

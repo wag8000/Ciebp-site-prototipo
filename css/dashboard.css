@@ -1,0 +1,117 @@
+/* ============================================================
+   CIEBP – Dashboard Styles
+   ============================================================ */
+
+.dashboard-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* =========================
+   TÍTULO
+========================= */
+.dashboard-title {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+  color: #193375;
+}
+
+/* =========================
+   CARDS (KPIs)
+========================= */
+.dashboard-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: all 0.25s ease;
+  border-left: 6px solid #FF1D6E;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px rgba(0,0,0,0.08);
+}
+
+.dashboard-card h2 {
+  font-size: 14px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dashboard-card p {
+  font-size: 32px;
+  font-weight: 800;
+  color: #193375;
+}
+
+/* =========================
+   GRÁFICO
+========================= */
+.dashboard-chart {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.dashboard-chart:hover {
+  box-shadow: 0 16px 35px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   RANKING
+========================= */
+.dashboard-ranking {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.dashboard-ranking h2 {
+  font-size: 22px;
+  color: #193375;
+}
+
+#ranking-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  background: #F9FAFB;
+  transition: 0.2s;
+}
+
+#ranking-list li:hover {
+  background: #EEF2FF;
+  transform: scale(1.01);
+}
+
+/* TOP 3 destaque */
+#ranking-list li:nth-child(1) {
+  background: linear-gradient(90deg, #FFD700, #FFF3B0);
+  font-weight: bold;
+}
+
+#ranking-list li:nth-child(2) {
+  background: linear-gradient(90deg, #C0C0C0, #ECECEC);
+  font-weight: bold;
+}
+
+#ranking-list li:nth-child(3) {
+  background: linear-gradient(90deg, #CD7F32, #F3D2A9);
+  font-weight: bold;
+}
+
+/* =========================
+   LAYOUT RESPONSIVO
+========================= */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}

@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CIEBP - Tabela e Chaveamento</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/supabase.js"></script>
+
 
   <link rel="icon" type="image/x-icon" href="/imagem/favicon/favicon.ico" >
 
@@ -160,17 +163,22 @@
     <h2 class="text-3xl font-bold text-[#193375] mb-6">
       Chaveamento do Torneio
     </h2>
+     <div class="mt-6 text-right">
+      <a href="dashboard.html" class="bg-[#E91E8C] hover:bg-[#d41880] text-white px-6 py-3 rounded-full font-bold transition">
+        Estatísticas
+      </a>
+    </div>
 
     <div id="bracket-ui"
       class="min-h-[400px] flex flex-col gap-3">
       <!-- JS desenha aqui -->
     </div>
 
+    
+
   </div>
 
 </section>
-
-
 
 
   <section class="bg-white border-t border-gray-200 py-20" id="regras">
@@ -297,7 +305,6 @@
   </div>
 </div>
 
-
   <script src="./js/app.js"></script>
   <script src="./js/carrousel.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -306,8 +313,10 @@
   <script src="./js/resultado.js"></script>
   <script src="./js/aovivo.js"></script>
   <script src="./js/mapa.js"></script>
-  <script src="./js/supabase.js"></script>
   <script src="./js/chaveamento.js"></script>
+  <script src="./js/evento-tabela.js"></script>
+
+
 
 
 <script>
