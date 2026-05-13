@@ -2,21 +2,43 @@ create table if not exists matches (
 
     id bigint generated always as identity primary key,
 
-    time_a bigint references teams(id) on delete cascade,
+    round integer not null,
 
-    time_b bigint references teams(id) on delete cascade,
+    match_number integer not null,
 
-    gols_a integer default 0,
+    team_a_id bigint,
 
-    gols_b integer default 0,
+    team_b_id bigint,
 
-    rodada integer,
+    score_a integer default 0,
 
-    fase text,
+    score_b integer default 0,
 
-    status text default 'AGENDADO',
+    status match_status default 'upcoming',
 
-    data_partida timestamptz,
+    winner_id bigint,
 
-    created_at timestamptz default now()
+    next_match_id bigint,
+
+    created_at timestamptz default now(),
+
+    constraint fk_team_a
+    foreign key (team_a_id)
+    references teams(id)
+    on delete set null,
+
+    constraint fk_team_b
+    foreign key (team_b_id)
+    references teams(id)
+    on delete set null,
+
+    constraint fk_winner
+    foreign key (winner_id)
+    references teams(id)
+    on delete set null,
+
+    constraint fk_next_match
+    foreign key (next_match_id)
+    references matches(id)
+    on delete set null
 );

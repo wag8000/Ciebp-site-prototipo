@@ -1,6 +1,11 @@
-insert into teams (nome, grupo, logo)
+insert into teams (
+    escola,
+    nome_equipe
+)
+
 values
-('Time Azul', 'A', 'azul.png'),
-('Time Verde', 'A', 'verde.png'),
-('Time Vermelho', 'B', 'vermelho.png'),
-('Time Amarelo', 'B', 'amarelo.png');
+
+('ETEC', 'Tigres'),
+('SENAI', 'Leões'),
+('E.E Maria', 'Falcões'),
+('Objetivo', 'Águias');

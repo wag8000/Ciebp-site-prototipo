@@ -1,11 +1,11 @@
 // Supabase-backed table logic for tabela.html
-const supabase = () => window.supabaseClient
+const getSupabase = () => window.supabaseClient
 
 async function carregarTabela() {
-  const client = supabase()
+  const client = getSupabase()
   if (!client) return
 
-  const { data, error } = await client.from('teams').select('*').order('id', {ascending:true})
+  const { data, error } = await client.from('teams').select('*').order('id', { ascending: true })
   if (error) {
     console.error('Erro ao carregar times:', error)
     return
@@ -16,12 +16,12 @@ async function carregarTabela() {
   tbody.innerHTML = ''
 
   data.forEach(team => {
-    const escola = team.escola ?? team.grupo ?? team.nome ?? team.nome_equipe ?? ''
-    const nome = team.nome_equipe ?? team.nome ?? ''
+    const grupo = team.grupo ?? ''
+    const nome = team.nome ?? ''
 
     const tr = document.createElement('tr')
     tr.innerHTML = `
-      <td class="p-3">${escola}</td>
+      <td class="p-3">${grupo}</td>
       <td class="p-3">${nome}</td>
       <td class="p-3"><button class="px-3 py-1 bg-gray-100 rounded">Remover</button></td>
     `
@@ -34,17 +34,17 @@ async function carregarTabela() {
 async function addTime() {
   const inputEscola = document.getElementById('input-escola')
   const inputTime = document.getElementById('input-time')
-  const escola = inputEscola?.value?.trim()
+  const grupo = inputEscola?.value?.trim()
   const nome = inputTime?.value?.trim()
   if (!nome) { alert('Informe o nome do time'); return }
 
   // prefer existing helper if present
   if (typeof cadastrarTime === 'function') {
-    try { await cadastrarTime(escola, nome) } catch(e){ console.error(e) }
+    try { await cadastrarTime(grupo, nome) } catch (e) { console.error(e) }
   } else {
-    const client = supabase()
+    const client = getSupabase()
     if (!client) { alert('Supabase não configurado'); return }
-    const payload = { nome_equipe: nome, escola }
+    const payload = { nome, grupo }
     const { error } = await client.from('teams').insert([payload])
     if (error) { console.error(error); alert('Erro ao cadastrar'); return }
     alert('Time cadastrado')
@@ -62,7 +62,7 @@ window.addTime = addTime
 document.addEventListener('DOMContentLoaded', () => {
   carregarTabela()
   // realtime subscription
-  const client = supabase()
+  const client = getSupabase()
   if (!client || !client.channel) return
   try {
     client
